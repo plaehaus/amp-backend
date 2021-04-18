@@ -67,6 +67,7 @@ exports.handler = async function (event, context) {
             };
         } else {
             await saveUpcomingProductions(upcomingProductions);
+            console.log(event);
             return {
                 statusCode: 200,
                 body: JSON.stringify({ postId: event.body.postId })
