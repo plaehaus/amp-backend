@@ -68,6 +68,8 @@ exports.handler = async function (event, context) {
                 body: JSON.stringify({ message: "Could not fetch upcoming productions" })
             };
         } else {
+            console.log(event);
+            console.log(upcomingProductions);
             const body = JSON.parse(event.body);
             console.log(`postId: ${body.postId}`);
             await saveUpcomingProductions(upcomingProductions);
