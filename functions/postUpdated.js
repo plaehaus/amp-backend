@@ -67,10 +67,10 @@ exports.handler = async function (event, context) {
             };
         } else {
             await saveUpcomingProductions(upcomingProductions);
-            console.log(event);
+            const body = JSON.parse(event.body);
             return {
                 statusCode: 200,
-                body: JSON.stringify({ postId: event.body.postId })
+                body: JSON.stringify({ postId: body.postId })
             };
         }
     }
