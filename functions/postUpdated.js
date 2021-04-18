@@ -54,6 +54,7 @@ const saveUpcomingProductions = async (upcomingProductions) => {
 
 exports.handler = async function (event, context) {
     if (!validateCredentials(event.headers['authorization'])) {
+        console.warn("Unauthorized");
         return {
             statusCode: 401,
             body: JSON.stringify({ message: "Unauthorized" })
@@ -61,13 +62,15 @@ exports.handler = async function (event, context) {
     } else {
         const upcomingProductions = await fetchUpcomingProductions();
         if (upcomingProductions === null) {
+            console.warn("Could not fetch upcoming productions");
             return {
                 statusCode: 500,
                 body: JSON.stringify({ message: "Could not fetch upcoming productions" })
             };
         } else {
-            await saveUpcomingProductions(upcomingProductions);
             const body = JSON.parse(event.body);
+            console.log(`postId: ${body.postId}`);
+            await saveUpcomingProductions(upcomingProductions);
             return {
                 statusCode: 200,
                 body: JSON.stringify({ postId: body.postId })
